@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Thank You, Priyanga Ma'am 💛</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+
+  <style>
+    :root {
+      --gold:   #f5c842;
+      --pink:   #ff6ec7;
+      --purple: #a259ff;
+      --blue:   #4fc3f7;
+      --teal:   #00e5cc;
+      --bg:     #0c0d18;
+      --card-bg: rgba(22, 24, 44, 0.75);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--bg);
+      color: #fff;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    /* ──────── PURE NATIVE 3D PARTICLES CANVAS ──────── */
+    #bg-canvas {
+      position: fixed; inset: 0;
+      width: 100%; height: 100%;
+      z-index: 0; pointer-events: none;
+    }
+
+    /* ──────── SHARED STYLES ──────── */
+    section { position: relative; z-index: 1; padding: 5.5rem 1.5rem; }
+
+    .chip {
+      display: inline-block;
+      font-size: .72rem; letter-spacing: .2em; text-transform: uppercase; font-weight: 600;
+      padding: .4rem 1.2rem;
+      border-radius: 50px;
+      border: 1px solid rgba(255,255,255,.2);
+      background: rgba(255,255,255,.06);
+      backdrop-filter: blur(8px);
+      margin-bottom: 1rem;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      text-align: center;
+      margin-bottom: .4rem;
+    }
+
+    .glow-line {
+      width: 80px; height: 3px; border-radius: 2px;
+      margin: 0 auto 3rem;
+    }
+
+    /* ──────── HERO ──────── */
+    .hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center; padding: 2.5rem 1.5rem;
+      perspective: 900px;
+      background: radial-gradient(circle at 50% 30%, rgba(162,89,255,.22) 0%, rgba(12,13,24,0) 70%);
+    }
+
+    .hero-inner {
+      position: relative; z-index: 2;
+      max-width: 860px;
+      animation: heroPop 1s cubic-bezier(.16,1,.3,1) both;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, rgba(162,89,255,.35), rgba(79,195,247,.35));
+      border: 1px solid rgba(162,89,255,.6);
+      backdrop-filter: blur(12px);
+      border-radius: 50px;
+      padding: .45rem 1.4rem;
+      font-size: .78rem;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: #e9d5ff;
+      margin-bottom: 1.8rem;
+      box-shadow: 0 0 25px rgba(162,89,255,.3);
+    }
+
+    .hero-thankyou {
+      font-size: clamp(1.1rem, 2.8vw, 1.6rem);
+      font-weight: 300;
+      color: rgba(255,255,255,.75);
+      margin-bottom: .4rem;
+      letter-spacing: .06em;
+    }
+
+    .hero-name {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 8.5vw, 6.2rem);
+      line-height: 1.1;
+      background: linear-gradient(135deg, #fff 10%, var(--gold) 45%, var(--pink) 75%, var(--purple) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+      filter: drop-shadow(0 0 35px rgba(245,200,66,.35));
+      margin-bottom: 1.2rem;
+    }
+
+    .hero-sub {
+      font-size: clamp(.95rem, 2vw, 1.2rem);
+      color: rgba(255,255,255,.7);
+      line-height: 1.8;
+      max-width: 600px;
+      margin: 0 auto 2.2rem;
+    }
+
+    .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+
+    .btn-primary {
+      padding: .9rem 2.4rem;
+      border-radius: 50px;
+      border: none;
+      font-size: .95rem; font-weight: 600; font-family: 'Poppins', sans-serif;
+      cursor: pointer;
+      background: linear-gradient(135deg, var(--gold), var(--pink));
+      color: #1a0a00;
+      box-shadow: 0 0 30px rgba(245,200,66,.4), 0 0 60px rgba(255,110,199,.2);
+      transition: transform .2s, box-shadow .2s;
+    }
+    .btn-primary:hover { transform: scale(1.06) translateY(-2px); box-shadow: 0 0 45px rgba(245,200,66,.6); }
+
+    .btn-ghost {
+      padding: .9rem 2.4rem;
+      border-radius: 50px;
+      border: 1px solid rgba(255,255,255,.25);
+      background: rgba(255,255,255,.06);
+      backdrop-filter: blur(10px);
+      font-size: .95rem; font-weight: 500; font-family: 'Poppins', sans-serif;
+      color: #fff; cursor: pointer;
+      transition: transform .2s, background .2s;
+    }
+    .btn-ghost:hover { background: rgba(255,255,255,.14); transform: translateY(-2px); }
+
+    .scroll-indicator {
+      position: absolute; bottom: 2rem; left: 50%;
+      transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: .5rem;
+      color: rgba(255,255,255,.4); font-size: .68rem; letter-spacing: .15em;
+    }
+    .scroll-indicator .mouse {
+      width: 20px; height: 32px;
+      border: 2px solid rgba(255,255,255,.3);
+      border-radius: 10px;
+      display: flex; justify-content: center; padding-top: 5px;
+    }
+    .scroll-indicator .wheel {
+      width: 3px; height: 6px;
+      background: rgba(255,255,255,.6);
+      border-radius: 2px;
+      animation: wheelMove 1.6s ease-in-out infinite;
+    }
+
+    /* ──────── 3D TILT CARDS ──────── */
+    .traits-section { text-align: center; }
+
+    .traits-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.6rem;
+      max-width: 1080px;
+      margin: 0 auto;
+    }
+
+    .tcard {
+      position: relative;
+      border-radius: 22px;
+      padding: 2.2rem 1.8rem;
+      background: var(--card-bg);
+      border: 1px solid rgba(255,255,255,.12);
+      backdrop-filter: blur(16px);
+      transform-style: preserve-3d;
+      transition: transform .12s ease, box-shadow .3s, border-color .3s;
+      cursor: default;
+      overflow: hidden;
+    }
+
+    .tcard:hover {
+      border-color: rgba(255,255,255,.3);
+      box-shadow: 0 15px 45px rgba(0,0,0,.6);
+    }
+
+    .tcard-icon { font-size: 2.8rem; margin-bottom: 1rem; display: block; }
+    .tcard h3 { font-size: 1.15rem; font-weight: 700; margin-bottom: .6rem; color: #fff; }
+    .tcard p  { font-size: .9rem; color: rgba(255,255,255,.72); line-height: 1.7; }
+
+    /* ──────── OPEN LETTER ──────── */
+    .letter-section { text-align: center; }
+
+    .letter-3d {
+      max-width: 760px;
+      margin: 0 auto;
+      background: rgba(24, 25, 48, 0.85);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,.16);
+      border-radius: 28px;
+      padding: 3.5rem 3rem;
+      position: relative;
+      box-shadow: 0 30px 80px rgba(0,0,0,.6), inset 0 1px 0 rgba(255,255,255,.15);
+    }
+
+    .letter-3d p {
+      font-size: 1.02rem; line-height: 1.95;
+      color: rgba(255,255,255,.85);
+      text-align: left;
+      margin-bottom: 1.3rem;
+    }
+
+    .letter-sign {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.15rem;
+      background: linear-gradient(90deg, var(--gold), var(--pink));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-top: 1.8rem;
+      text-align: right;
+    }
+
+    /* ──────── 3D ROTATING CYLINDER CAROUSEL ──────── */
+    .love-section { text-align: center; overflow: hidden; }
+
+    .carousel-controls {
+      display: flex; justify-content: center; align-items: center; gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .carousel-btn {
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.2);
+      color: #fff;
+      padding: .6rem 1.4rem;
+      border-radius: 50px;
+      font-size: .85rem;
+      font-family: 'Poppins', sans-serif;
+      cursor: pointer;
+      backdrop-filter: blur(10px);
+      transition: all .2s;
+    }
+    .carousel-btn:hover { background: rgba(255,255,255,.18); transform: translateY(-2px); }
+    .carousel-btn.active {
+      background: linear-gradient(135deg, var(--gold), var(--pink));
+      color: #111; font-weight: 600; border-color: transparent;
+    }
+
+    .carousel-3d-stage {
+      perspective: 1400px;
+      width: 100%;
+      height: 420px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      cursor: grab;
+      touch-action: pan-y;
+      user-select: none;
+    }
+    .carousel-3d-stage:active { cursor: grabbing; }
+
+    .carousel-3d-ring {
+      width: 240px;
+      height: 310px;
+      position: absolute;
+      transform-style: preserve-3d;
+      transition: transform 0.04s linear;
+    }
+
+    .carousel-card {
+      position: absolute;
+      inset: 0;
+      border-radius: 20px;
+      transform-style: preserve-3d;
+      backface-visibility: hidden;
+      cursor: pointer;
+      box-shadow: 0 10px 30px rgba(0,0,0,.6);
+      transition: box-shadow .3s;
+    }
+    .carousel-card:hover {
+      box-shadow: 0 15px 45px rgba(255,110,199,.5);
+    }
+
+    .cc-inner {
+      width: 100%; height: 100%;
+      border-radius: 20px;
+      padding: 1.8rem 1.3rem;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center;
+      background: rgba(18, 20, 38, 0.92);
+      border: 1.5px solid rgba(255,255,255,.18);
+      backdrop-filter: blur(20px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cc-badge {
+      font-size: 2.8rem; margin-bottom: .8rem;
+    }
+    .cc-num {
+      position: absolute; top: .8rem; right: 1.1rem;
+      font-size: 1.8rem; font-weight: 800; opacity: .18;
+      font-family: 'Poppins', sans-serif;
+    }
+    .cc-text {
+      font-size: .92rem; color: rgba(255,255,255,.92); line-height: 1.65;
+      font-weight: 400;
+    }
+
+    .flip-grid {
+      display: none;
+      grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+      gap: 1.2rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .fcard {
+      height: 165px;
+      perspective: 900px;
+      cursor: pointer;
+    }
+    .finner {
+      width: 100%; height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform .7s cubic-bezier(.4,0,.2,1);
+    }
+    .fcard.flipped .finner { transform: rotateY(180deg); }
+
+    .ffront, .fback {
+      position: absolute; inset: 0;
+      border-radius: 18px;
+      backface-visibility: hidden;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 1.2rem; text-align: center;
+    }
+    .ffront { box-shadow: 0 8px 30px rgba(0,0,0,.4); }
+    .ffront .fnum { font-size: 2.2rem; font-weight: 800; opacity: .2; }
+    .ffront .fic  { font-size: 2rem; }
+    .ffront .fhint { font-size: .62rem; opacity: .7; letter-spacing: .08em; margin-top: .4rem; text-transform: uppercase; }
+
+    .fback {
+      background: rgba(20,22,42,.96);
+      border: 1px solid rgba(255,255,255,.2);
+      transform: rotateY(180deg);
+      backdrop-filter: blur(20px);
+    }
+    .fback p { font-size: .83rem; color: rgba(255,255,255,.9); line-height: 1.6; }
+
+    /* ──────── TIMELINE ──────── */
+    .journey-section { text-align: center; }
+
+    .tl-wrap {
+      max-width: 720px;
+      margin: 0 auto;
+      position: relative;
+      padding-left: 3rem;
+      text-align: left;
+    }
+
+    .tl-wrap::before {
+      content: '';
+      position: absolute;
+      left: 12px; top: 0; bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--teal), var(--purple), var(--pink));
+      box-shadow: 0 0 12px rgba(0,229,204,.5);
+    }
+
+    .tl-item {
+      margin-bottom: 2.6rem;
+      position: relative;
+    }
+
+    .tl-dot {
+      position: absolute;
+      left: -2.6rem; top: .4rem;
+      width: 16px; height: 16px;
+      border-radius: 50%;
+    }
+
+    .tl-glass {
+      background: var(--card-bg);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255,255,255,.14);
+      border-radius: 18px;
+      padding: 1.6rem 2rem;
+      transition: transform .25s, box-shadow .25s;
+    }
+    .tl-glass:hover {
+      transform: translateX(6px);
+      box-shadow: 0 8px 35px rgba(0,0,0,.5);
+    }
+
+    .tl-glass h4 { font-size: 1.05rem; font-weight: 600; margin-bottom: .4rem; color: #fff; }
+    .tl-glass p  { font-size: .9rem; color: rgba(255,255,255,.7); line-height: 1.7; }
+
+    /* ──────── HEART WALL ──────── */
+    .heart-section { text-align: center; }
+
+    #heartWall {
+      position: relative;
+      width: min(600px, 92vw);
+      height: 320px;
+      margin: 0 auto 1.5rem;
+      border-radius: 26px;
+      background: rgba(25, 27, 50, 0.6);
+      border: 1.5px dashed rgba(255,110,199,.4);
+      overflow: hidden;
+      cursor: crosshair;
+      backdrop-filter: blur(10px);
+    }
+
+    .wall-hint {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: .6rem; pointer-events: none;
+      color: rgba(255,110,199,.5);
+      font-size: .92rem;
+      transition: opacity .4s;
+    }
+    .wall-hint .hbig { font-size: 3rem; }
+
+    #heartCount {
+      font-size: 1.05rem; color: var(--gold);
+      font-weight: 600;
+    }
+
+    /* ──────── FOOTER ──────── */
+    footer {
+      text-align: center;
+      padding: 4.5rem 1.5rem 2.5rem;
+      position: relative;
+      z-index: 1;
+      background: linear-gradient(180deg, transparent, rgba(162,89,255,.08));
+    }
+
+    .footer-heart { font-size: 3.2rem; animation: pulse 1.5s ease-in-out infinite; display: block; margin-bottom: 1rem; }
+
+    footer h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      background: linear-gradient(135deg, var(--gold), var(--pink), var(--purple));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      margin-bottom: .8rem;
+    }
+
+    footer p { font-size: .95rem; color: rgba(255,255,255,.6); line-height: 1.8; max-width: 520px; margin: 0 auto .6rem; }
+
+    .footer-pills {
+      display: flex; flex-wrap: wrap; gap: .6rem;
+      justify-content: center; margin-top: 2rem;
+    }
+    .footer-pill {
+      padding: .4rem 1.1rem;
+      border-radius: 50px;
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.16);
+      font-size: .78rem; color: rgba(255,255,255,.75);
+    }
+
+    footer .credits { margin-top: 2.2rem; font-size: .72rem; color: rgba(255,255,255,.3); }
+
+    /* ──────── ANIMATIONS ──────── */
+    @keyframes heroPop {
+      from { opacity:0; transform: perspective(900px) rotateX(8deg) translateY(30px); }
+      to   { opacity:1; transform: perspective(900px) rotateX(0)   translateY(0); }
+    }
+    @keyframes wheelMove {
+      0%,100% { transform: translateY(0); opacity:1; }
+      75%     { transform: translateY(10px); opacity:0; }
+    }
+    @keyframes pulse {
+      0%,100% { transform: scale(1); }
+      50%      { transform: scale(1.18); }
+    }
+    @keyframes popHeart {
+      0%   { transform: translate(-50%,-50%) scale(0) rotate(-15deg); opacity:0; }
+      60%  { transform: translate(-50%,-50%) scale(1.3) rotate(5deg); opacity:1; }
+      100% { transform: translate(-50%,-50%) scale(1) rotate(0); opacity:1; }
+    }
+
+    @media (max-width:600px) {
+      .letter-3d { padding: 2.2rem 1.4rem; }
+      .flip-grid  { grid-template-columns: repeat(2,1fr); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- 3D PURE CANVAS (Zero CDN dependencies, works 100% offline & everywhere) -->
+<canvas id="bg-canvas"></canvas>
+
+<!-- ════════ HERO ════════ -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">🎓 A Tribute from Your Very First Batch · VIT Chennai</div>
+    <div class="hero-thankyou">Thank You,</div>
+    <h1 class="hero-name">Priyanga Ma'am</h1>
+    <p class="hero-sub">
+      You walked in as our professor.<br/>
+      You stayed in our hearts as something far greater.
+    </p>
+    <div class="hero-btns">
+      <button class="btn-primary" onclick="launchConfetti()">🎉 Celebrate Ma'am!</button>
+      <button class="btn-ghost" onclick="document.querySelector('.traits-section').scrollIntoView({behavior:'smooth'})">Explore 3D ↓</button>
+    </div>
+  </div>
+  <div class="scroll-indicator">
+    <div class="mouse"><div class="wheel"></div></div>
+    <span>SCROLL</span>
+  </div>
+</section>
+
+<!-- ════════ TRAITS ════════ -->
+<section class="traits-section">
+  <div class="chip" style="color:#a78bfa">✦ What Makes You Extraordinary</div>
+  <h2 class="section-title" style="background:linear-gradient(135deg,#fff,#a78bfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">More Than Just Our Professor</h2>
+  <div class="glow-line" style="background:linear-gradient(90deg,#a259ff,#ff6ec7)"></div>
+
+  <div class="traits-grid">
+    <div class="tcard">
+      <span class="tcard-icon">🌸</span>
+      <h3>Genuine Care</h3>
+      <p>You remembered every student's name, every worry, every small win. Your care was never surface-level — it was real and deeply felt.</p>
+    </div>
+    <div class="tcard">
+      <span class="tcard-icon">😊</span>
+      <h3>That Infectious Smile</h3>
+      <p>The moment you walked into class with that smile, the whole room lit up. No matter how tired we were, your energy changed everything.</p>
+    </div>
+    <div class="tcard">
+      <span class="tcard-icon">🤝</span>
+      <h3>Always Approachable</h3>
+      <p>No question was too small. No doubt too silly. You made every student feel completely safe to speak up — and that is rare.</p>
+    </div>
+    <div class="tcard">
+      <span class="tcard-icon">💪</span>
+      <h3>You Believed in Us</h3>
+      <p>Even when we didn't believe in ourselves, you did. Your encouragement pushed us to try harder and believe we actually could do this.</p>
+    </div>
+    <div class="tcard">
+      <span class="tcard-icon">🌻</span>
+      <h3>A Safe Space</h3>
+      <p>Your classroom was a refuge. You made every student feel seen, valued, and important — not just as students, but as people.</p>
+    </div>
+    <div class="tcard">
+      <span class="tcard-icon">🏆</span>
+      <h3>Our First, Our Best</h3>
+      <p>We were your very first batch — and you took on that responsibility with grace, dedication, and a love for teaching we'll never forget.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ LETTER ════════ -->
+<section class="letter-section">
+  <div class="chip" style="color:#f5c842">✦ Words from the Heart</div>
+  <h2 class="section-title" style="background:linear-gradient(135deg,#f5c842,#ff6ec7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Dear Priyanga Ma'am</h2>
+  <div class="glow-line" style="background:linear-gradient(90deg,#f5c842,#ff6ec7)"></div>
+
+  <div class="letter-3d">
+    <p>When we walked into college for the very first time, we were nervous, lost, and completely overwhelmed. Everything was new. But the moment you walked in, something felt different. Something felt <em>safe</em>.</p>
+    <p>You chose to be a human first and a professor second. You noticed when someone was struggling — not just academically, but personally. You stayed back when someone needed help, not because it was in your job description, but because you genuinely cared. And somehow, that changed everything.</p>
+    <p>We know this is just the beginning of a long and brilliant career for you. But we want you to know — your very first batch of students at VIT Chennai saw every single effort you put in. Every kind word. Every extra minute. Every warm smile.</p>
+    <p>We were lucky to be your first. And we hope every batch after us gets to feel exactly how we felt in your class.</p>
+    <div class="letter-sign">With all our love &amp; gratitude,<br/>Your First Batch — VIT Chennai 2026 💛</div>
+  </div>
+</section>
+
+<!-- ════════ 3D ROTATING CYLINDER & CARDS ════════ -->
+<section class="love-section">
+  <div class="chip" style="color:#ff6ec7">✦ Interactive 3D Space</div>
+  <h2 class="section-title" style="background:linear-gradient(135deg,#ff6ec7,#4fc3f7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Reasons We Adore You, Ma'am</h2>
+  <div class="glow-line" style="background:linear-gradient(90deg,#ff6ec7,#4fc3f7)"></div>
+
+  <div class="carousel-controls">
+    <button class="carousel-btn active" id="btn3d" onclick="setMode('3d')">🌀 3D Drag &amp; Spin Cylinder</button>
+    <button class="carousel-btn" id="btnGrid" onclick="setMode('grid')">🗂️ Grid View</button>
+  </div>
+
+  <div class="carousel-3d-stage" id="stage3d">
+    <div class="carousel-3d-ring" id="ring3d"></div>
+  </div>
+
+  <div class="flip-grid" id="flipGrid"></div>
+</section>
+
+<!-- ════════ TIMELINE ════════ -->
+<section class="journey-section">
+  <div class="chip" style="color:#00e5cc">✦ From Day 1 to Last Day</div>
+  <h2 class="section-title" style="background:linear-gradient(135deg,#00e5cc,#4fc3f7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Moments We'll Never Forget</h2>
+  <div class="glow-line" style="background:linear-gradient(90deg,#00e5cc,#4fc3f7)"></div>
+
+  <div class="tl-wrap">
+    <div class="tl-item">
+      <div class="tl-dot" style="background:#00e5cc;box-shadow:0 0 0 4px rgba(0,229,204,.15),0 0 20px #00e5cc"></div>
+      <div class="tl-glass">
+        <h4>🎓 The Very First Day</h4>
+        <p>You walked in with a smile so warm it wiped out every bit of nervousness. You introduced yourself not just as a professor, but as someone who genuinely wanted to know us.</p>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot" style="background:#4fc3f7;box-shadow:0 0 0 4px rgba(79,195,247,.15),0 0 20px #4fc3f7"></div>
+      <div class="tl-glass">
+        <h4>📖 Every Single Lecture</h4>
+        <p>You made sure no one was left behind. You'd scan the room, notice a confused face, and circle back — every time, without fail. That patience meant the world to us.</p>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot" style="background:#a259ff;box-shadow:0 0 0 4px rgba(162,89,255,.15),0 0 20px #a259ff"></div>
+      <div class="tl-glass">
+        <h4>📝 Exam Week Panic</h4>
+        <p>The stress was real. But your calm, your extra guidance, and your "you've got this" kept us going. Somehow, because you believed in us, we started to believe too.</p>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot" style="background:#ff6ec7;box-shadow:0 0 0 4px rgba(255,110,199,.15),0 0 20px #ff6ec7"></div>
+      <div class="tl-glass">
+        <h4>💡 The Lightbulb Moments</h4>
+        <p>There were so many "ohhhh!" moments in your class. You had this magical ability to make complicated things suddenly make complete sense. That was all you.</p>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot" style="background:#f5c842;box-shadow:0 0 0 4px rgba(245,200,66,.15),0 0 20px #f5c842"></div>
+      <div class="tl-glass">
+        <h4>💛 End of Semester</h4>
+        <p>The semester is over. But your impact? That's permanent. You set a bar that every professor after you will have to reach. Thank you for being our first — and best.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ HEART WALL ════════ -->
+<section class="heart-section">
+  <div class="chip" style="color:#ff6ec7">✦ Interactive</div>
+  <h2 class="section-title" style="background:linear-gradient(135deg,#ff6ec7,#f5c842);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Send You Our Love, Ma'am</h2>
+  <div class="glow-line" style="background:linear-gradient(90deg,#ff6ec7,#f5c842)"></div>
+
+  <div id="heartWall">
+    <div class="wall-hint" id="wallHint">
+      <span class="hbig">💛</span>
+      <span>Click anywhere to send a heart!</span>
+    </div>
+  </div>
+  <p id="heartCount">0 hearts sent to Ma'am 💛</p>
+</section>
+
+<!-- ════════ FOOTER ════════ -->
+<footer>
+  <span class="footer-heart">💛</span>
+  <h2>Thank You, Priyanga Ma'am</h2>
+  <p>You were our first — and you've already made a mark that no one else will ever erase.</p>
+  <p>Go change the world, one student at a time. 🌟</p>
+  <div class="footer-pills">
+    <span class="footer-pill">🏫 VIT Chennai</span>
+    <span class="footer-pill">⚛️ Applied Physics</span>
+    <span class="footer-pill">🎓 First Batch 2026</span>
+    <span class="footer-pill">💛 Forever Grateful</span>
+    <span class="footer-pill">🌟 Semester 1</span>
+  </div>
+  <div class="credits">Made with 💛 by your very first batch &nbsp;|&nbsp; VIT Chennai 2026</div>
+</footer>
+
+<script>
+/* ══════════════════════════════════════════════════════
+   PURE 3D STARS & NEBULA CANVAS (100% NATIVE, ZERO DEPENDENCY)
+══════════════════════════════════════════════════════ */
+(function() {
+  const canvas = document.getElementById('bg-canvas');
+  const ctx = canvas.getContext('2d');
+  let w, h;
+  let stars = [];
+  const starCount = 200;
+
+  function resize() {
+    w = canvas.width  = window.innerWidth;
+    h = canvas.height = window.innerHeight;
+  }
+  window.addEventListener('resize', resize);
+  resize();
+
+  // Create 3D starfield particles
+  for (let i = 0; i < starCount; i++) {
+    stars.push({
+      x: (Math.random() - 0.5) * 2000,
+      y: (Math.random() - 0.5) * 2000,
+      z: Math.random() * 1000 + 1,
+      size: Math.random() * 1.5 + 0.5,
+      color: ['#f5c842', '#ff6ec7', '#a259ff', '#4fc3f7', '#00e5cc'][Math.floor(Math.random() * 5)]
+    });
+  }
+
+  let mouseX = 0, mouseY = 0;
+  window.addEventListener('mousemove', e => {
+    mouseX = (e.clientX - w / 2) * 0.05;
+    mouseY = (e.clientY - h / 2) * 0.05;
+  });
+
+  function render() {
+    ctx.fillStyle = '#0c0d18';
+    ctx.fillRect(0, 0, w, h);
+
+    // Subtle 3D colored glowing nebula orbs
+    const grad1 = ctx.createRadialGradient(w * 0.25 - mouseX * 2, h * 0.25 - mouseY * 2, 10, w * 0.25, h * 0.25, 450);
+    grad1.addColorStop(0, 'rgba(162, 89, 255, 0.16)');
+    grad1.addColorStop(1, 'transparent');
+    ctx.fillStyle = grad1;
+    ctx.fillRect(0, 0, w, h);
+
+    const grad2 = ctx.createRadialGradient(w * 0.75 + mouseX * 2, h * 0.7 + mouseY * 2, 10, w * 0.75, h * 0.7, 450);
+    grad2.addColorStop(0, 'rgba(255, 110, 199, 0.13)');
+    grad2.addColorStop(1, 'transparent');
+    ctx.fillStyle = grad2;
+    ctx.fillRect(0, 0, w, h);
+
+    const cx = w / 2;
+    const cy = h / 2;
+
+    // Project 3D star coordinates to 2D screen
+    stars.forEach(s => {
+      s.z -= 1.2;
+      if (s.z <= 0) {
+        s.z = 1000;
+        s.x = (Math.random() - 0.5) * 2000;
+        s.y = (Math.random() - 0.5) * 2000;
+      }
+
+      const k = 400 / s.z;
+      const px = (s.x + mouseX * 8) * k + cx;
+      const py = (s.y + mouseY * 8) * k + cy;
+
+      if (px >= 0 && px <= w && py >= 0 && py <= h) {
+        const alpha = Math.min(1, (1000 - s.z) / 400);
+        ctx.beginPath();
+        ctx.arc(px, py, s.size * k * 0.8, 0, Math.PI * 2);
+        ctx.fillStyle = s.color;
+        ctx.globalAlpha = alpha;
+        ctx.fill();
+        ctx.globalAlpha = 1;
+      }
+    });
+
+    requestAnimationFrame(render);
+  }
+  render();
+})();
+
+/* ══════════════════════════════════════════════════════
+   3D TILT ON TRAIT CARDS
+══════════════════════════════════════════════════════ */
+document.querySelectorAll('.tcard').forEach(card => {
+  card.addEventListener('mousemove', e => {
+    const r = card.getBoundingClientRect();
+    const x = e.clientX - r.left;
+    const y = e.clientY - r.top;
+    const cx = r.width / 2;
+    const cy = r.height / 2;
+    const rotY = ((x - cx) / cx) * 12;
+    const rotX = -((y - cy) / cy) * 10;
+    card.style.transform = `perspective(800px) rotateX(${rotX}deg) rotateY(${rotY}deg) scale3d(1.03,1.03,1.03)`;
+  });
+  card.addEventListener('mouseleave', () => {
+    card.style.transform = 'perspective(800px) rotateX(0) rotateY(0) scale3d(1,1,1)';
+  });
+});
+
+/* ══════════════════════════════════════════════════════
+   3D ROTATING CYLINDER & CARDS DATA
+══════════════════════════════════════════════════════ */
+const reasons = [
+  { ico:'💛', n:1,  grad:'linear-gradient(135deg,#f5c842,#f97b14)', text:'You remembered every single student\'s name from day one.' },
+  { ico:'😊', n:2,  grad:'linear-gradient(135deg,#ff6ec7,#a259ff)', text:'Your smile could turn any terrible Monday into something bearable.' },
+  { ico:'🤍', n:3,  grad:'linear-gradient(135deg,#4fc3f7,#00e5cc)', text:'You genuinely cared — not as a duty, but as a person.' },
+  { ico:'🙋', n:4,  grad:'linear-gradient(135deg,#a259ff,#ff6ec7)', text:'You made us feel like our questions actually mattered.' },
+  { ico:'🌟', n:5,  grad:'linear-gradient(135deg,#00e5cc,#4fc3f7)', text:'You stayed back without being asked, just to help us understand.' },
+  { ico:'🎯', n:6,  grad:'linear-gradient(135deg,#f5c842,#ff6ec7)', text:'You had a way of explaining things that just clicked every time.' },
+  { ico:'🫂', n:7,  grad:'linear-gradient(135deg,#a259ff,#4fc3f7)', text:'You checked in on us personally, not just academically.' },
+  { ico:'🔥', n:8,  grad:'linear-gradient(135deg,#ff6ec7,#f5c842)', text:'Your dedication to us was visible in every single lecture.' },
+  { ico:'📚', n:9,  grad:'linear-gradient(135deg,#4fc3f7,#a259ff)', text:'You made us want to actually study — that\'s a superpower.' },
+  { ico:'🌈', n:10, grad:'linear-gradient(135deg,#00e5cc,#a259ff)', text:'You brought colour and energy into what could\'ve been boring.' },
+  { ico:'🕊️',n:11, grad:'linear-gradient(135deg,#ff6ec7,#00e5cc)', text:'You never made anyone feel embarrassed for not knowing something.' },
+  { ico:'⏰', n:12, grad:'linear-gradient(135deg,#f5c842,#4fc3f7)', text:'You were always on time, fully present, and fully committed.' },
+  { ico:'💌', n:13, grad:'linear-gradient(135deg,#a259ff,#f5c842)', text:'Your feedback was always kind, honest, and genuinely helpful.' },
+  { ico:'🎤', n:14, grad:'linear-gradient(135deg,#4fc3f7,#ff6ec7)', text:'Even your voice made us pay attention — calm, warm, clear.' },
+  { ico:'🧠', n:15, grad:'linear-gradient(135deg,#00e5cc,#f5c842)', text:'You challenged us to think, not just memorise and forget.' },
+];
+
+const ring = document.getElementById('ring3d');
+const grid = document.getElementById('flipGrid');
+const countCards = reasons.length;
+const angleStep = 360 / countCards;
+const ringRadius = 550; // 3D depth
+
+// Populate 3D Ring
+reasons.forEach((r, i) => {
+  const card = document.createElement('div');
+  card.className = 'carousel-card';
+  card.style.transform = `rotateY(${i * angleStep}deg) translateZ(${ringRadius}px)`;
+  card.innerHTML = `
+    <div class="cc-inner">
+      <div class="cc-num">${r.n}</div>
+      <div class="cc-badge">${r.ico}</div>
+      <p class="cc-text">${r.text}</p>
+    </div>
+  `;
+  card.addEventListener('click', () => {
+    targetAngle = -i * angleStep;
+  });
+  ring.appendChild(card);
+});
+
+// Populate Grid View
+reasons.forEach(r => {
+  const card = document.createElement('div');
+  card.className = 'fcard';
+  card.innerHTML = `
+    <div class="finner">
+      <div class="ffront" style="background:${r.grad}">
+        <div class="fnum">${r.n}</div>
+        <div class="fic">${r.ico}</div>
+        <div class="fhint">tap to reveal</div>
+      </div>
+      <div class="fback"><p>${r.text}</p></div>
+    </div>`;
+  card.addEventListener('click', () => card.classList.toggle('flipped'));
+  grid.appendChild(card);
+});
+
+// 3D Ring Drag & Inertia physics
+let currentAngle = 0;
+let targetAngle = 0;
+let isDragging = false;
+let startX = 0;
+let velocity = 0.25;
+let lastX = 0;
+
+const stage = document.getElementById('stage3d');
+
+stage.addEventListener('mousedown', e => {
+  isDragging = true;
+  startX = e.clientX;
+  lastX = e.clientX;
+});
+window.addEventListener('mousemove', e => {
+  if (!isDragging) return;
+  const delta = e.clientX - lastX;
+  targetAngle += delta * 0.35;
+  velocity = delta * 0.2;
+  lastX = e.clientX;
+});
+window.addEventListener('mouseup', () => {
+  isDragging = false;
+});
+
+stage.addEventListener('touchstart', e => {
+  isDragging = true;
+  startX = e.touches[0].clientX;
+  lastX = e.touches[0].clientX;
+}, { passive: true });
+window.addEventListener('touchmove', e => {
+  if (!isDragging) return;
+  const delta = e.touches[0].clientX - lastX;
+  targetAngle += delta * 0.4;
+  velocity = delta * 0.2;
+  lastX = e.touches[0].clientX;
+}, { passive: true });
+window.addEventListener('touchend', () => {
+  isDragging = false;
+});
+
+function animateRing() {
+  if (!isDragging) {
+    targetAngle += velocity * 0.08;
+    velocity *= 0.95;
+    if (Math.abs(velocity) < 0.05) velocity = 0.08;
+  }
+  currentAngle += (targetAngle - currentAngle) * 0.08;
+  ring.style.transform = `rotateY(${currentAngle}deg)`;
+  requestAnimationFrame(animateRing);
+}
+animateRing();
+
+function setMode(mode) {
+  const btn3d = document.getElementById('btn3d');
+  const btnGrid = document.getElementById('btnGrid');
+  if (mode === '3d') {
+    stage.style.display = 'flex';
+    grid.style.display = 'none';
+    btn3d.classList.add('active');
+    btnGrid.classList.remove('active');
+  } else {
+    stage.style.display = 'none';
+    grid.style.display = 'grid';
+    btnGrid.classList.add('active');
+    btn3d.classList.remove('active');
+  }
+}
+
+/* ══════════════════════════════════════════════════════
+   HEART WALL
+══════════════════════════════════════════════════════ */
+const wall    = document.getElementById('heartWall');
+const hint    = document.getElementById('wallHint');
+const countEl = document.getElementById('heartCount');
+const hearts  = ['💛','💜','💙','💖','💗','🧡','💚','🤍','❤️'];
+let hCount = 0;
+
+wall.addEventListener('click', e => {
+  const rect = wall.getBoundingClientRect();
+  const x = e.clientX - rect.left;
+  const y = e.clientY - rect.top;
+
+  const h = document.createElement('div');
+  h.style.cssText = `
+    position:absolute; left:${x}px; top:${y}px;
+    font-size:${Math.random()*1.3+1.1}rem;
+    animation: popHeart .4s cubic-bezier(.16,1,.3,1) forwards;
+    pointer-events:none; user-select:none; z-index:5;
+  `;
+  h.textContent = hearts[Math.floor(Math.random()*hearts.length)];
+  wall.appendChild(h);
+
+  hCount++;
+  countEl.textContent = `${hCount} heart${hCount!==1?'s':''} sent to Ma'am 💛`;
+  if(hCount === 1) hint.style.opacity = '0';
+
+  setTimeout(() => {
+    h.style.transition = 'transform 1.2s ease, opacity 1.2s ease';
+    h.style.transform  = `translate(-50%,${-50 - Math.random()*40}px) scale(1.1)`;
+    h.style.opacity = '0';
+  }, 450);
+  setTimeout(() => h.remove(), 1800);
+});
+
+/* ══════════════════════════════════════════════════════
+   CONFETTI
+══════════════════════════════════════════════════════ */
+function launchConfetti(){
+  const colors = ['#f5c842','#ff6ec7','#a259ff','#4fc3f7','#00e5cc','#fff'];
+  for(let i = 0; i < 120; i++){
+    setTimeout(() => {
+      const p = document.createElement('div');
+      const size = Math.random()*10 + 5;
+      const dur  = Math.random()*2.2 + 1.5;
+      p.style.cssText = `
+        position:fixed; top:-20px;
+        left:${Math.random()*100}vw;
+        width:${size}px; height:${size}px;
+        background:${colors[Math.floor(Math.random()*colors.length)]};
+        border-radius:${Math.random()>.5?'50%':'3px'};
+        z-index:9999; pointer-events:none;
+        animation:confFall ${dur}s ease forwards;
+        transform:rotate(${Math.random()*360}deg);
+      `;
+      document.body.appendChild(p);
+      setTimeout(() => p.remove(), (dur+.5)*1000);
+    }, i * 20);
+  }
+}
+
+const cs = document.createElement('style');
+cs.textContent = `
+  @keyframes confFall {
+    0%  { transform: translateY(0) rotate(0deg); opacity:1; }
+    100%{ transform: translateY(105vh) rotate(720deg); opacity:0; }
+  }`;
+document.head.appendChild(cs);
+</script>
+</body>
+</html>
