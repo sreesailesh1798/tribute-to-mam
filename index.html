@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Thank You, Prof. Priyanga K 💛</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --pink:    #ff6b9d;
+      --purple:  #a855f7;
+      --blue:    #3b82f6;
+      --teal:    #14b8a6;
+      --orange:  #f97316;
+      --yellow:  #fbbf24;
+      --rose:    #f43f5e;
+      --mint:    #10b981;
+      --deep:    #1e1b4b;
+      --text:    #1f2937;
+      --light:   #f8fafc;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #fff;
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* ── CANVAS ── */
+    #bgCanvas {
+      position: fixed; inset: 0;
+      pointer-events: none; z-index: 0;
+      opacity: .45;
+    }
+
+    /* ════════════════════════════════
+       HERO
+    ════════════════════════════════ */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center; padding: 2rem;
+      background: linear-gradient(135deg,
+        #667eea 0%, #764ba2 25%,
+        #f953c6 50%, #ff6b9d 75%,
+        #ffd89b 100%);
+      overflow: hidden;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: rgba(0,0,0,.18);
+    }
+
+    .hero-content { position: relative; z-index: 2; max-width: 860px; }
+
+    .badge {
+      display: inline-block;
+      background: rgba(255,255,255,.25);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,.4);
+      color: #fff;
+      font-size: .78rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      border-radius: 50px;
+      padding: .4rem 1.3rem;
+      margin-bottom: 1.8rem;
+      animation: fadeDown .8s ease both;
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 7vw, 5.5rem);
+      line-height: 1.1;
+      color: #fff;
+      text-shadow: 0 4px 20px rgba(0,0,0,.3);
+      animation: fadeDown .9s .15s ease both;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      background: linear-gradient(90deg, #ffe29f, #ffa99f);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-subtitle {
+      margin-top: 1.4rem;
+      font-size: clamp(.95rem, 2vw, 1.2rem);
+      color: rgba(255,255,255,.9);
+      font-weight: 300;
+      line-height: 1.75;
+      animation: fadeDown 1s .3s ease both;
+    }
+
+    .vit-pill {
+      display: inline-flex; align-items: center; gap: .5rem;
+      background: rgba(255,255,255,.2);
+      backdrop-filter: blur(6px);
+      border-radius: 50px;
+      padding: .5rem 1.3rem;
+      margin-top: 2rem;
+      color: #fff;
+      font-size: .88rem;
+      font-weight: 500;
+      animation: fadeDown 1s .45s ease both;
+    }
+
+    /* confetti button */
+    .confetti-btn {
+      margin-top: 2.2rem;
+      padding: .9rem 2.5rem;
+      font-size: 1rem;
+      font-weight: 600;
+      font-family: 'Poppins', sans-serif;
+      border: none;
+      border-radius: 50px;
+      background: linear-gradient(90deg, #ffd89b, #ff6b9d);
+      color: #fff;
+      cursor: pointer;
+      box-shadow: 0 8px 24px rgba(255,107,157,.45);
+      transition: transform .2s, box-shadow .2s;
+      animation: fadeDown 1s .6s ease both;
+      z-index: 2; position: relative;
+    }
+    .confetti-btn:hover { transform: scale(1.07); box-shadow: 0 12px 32px rgba(255,107,157,.55); }
+    .confetti-btn:active { transform: scale(.97); }
+
+    /* scroll arrow */
+    .scroll-hint {
+      position: absolute; bottom: 2rem; left: 50%;
+      transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: .4rem;
+      color: rgba(255,255,255,.7); font-size: .72rem; letter-spacing: .1em;
+      z-index: 2; animation: fadeUp 1.2s .9s ease both;
+    }
+    .scroll-hint .arr {
+      width: 18px; height: 18px;
+      border-right: 2px solid rgba(255,255,255,.7);
+      border-bottom: 2px solid rgba(255,255,255,.7);
+      transform: rotate(45deg);
+      animation: bounce 1.4s infinite;
+    }
+
+    /* floating emojis in hero */
+    .floatie {
+      position: absolute; font-size: 1.5rem;
+      animation: floatUp linear infinite;
+      opacity: 0; z-index: 1; pointer-events: none;
+    }
+
+    /* ════════════════════════════════
+       SECTIONS COMMON
+    ════════════════════════════════ */
+    section { position: relative; z-index: 1; padding: 5.5rem 1.5rem; }
+
+    .sec-label {
+      text-align: center;
+      font-size: .72rem; letter-spacing: .22em;
+      text-transform: uppercase; font-weight: 600;
+      margin-bottom: .6rem;
+    }
+
+    .sec-title {
+      text-align: center;
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.9rem, 4vw, 3rem);
+      margin-bottom: .6rem;
+    }
+
+    .sec-line {
+      width: 60px; height: 4px;
+      border-radius: 2px;
+      margin: 0 auto 3.2rem;
+    }
+
+    /* ════════════════════════════════
+       TRAITS — colorful cards
+    ════════════════════════════════ */
+    .traits-section {
+      background: linear-gradient(135deg, #f0f9ff 0%, #fdf4ff 50%, #fff7ed 100%);
+    }
+    .traits-section .sec-label { color: var(--purple); }
+    .traits-section .sec-title { color: var(--deep); }
+    .traits-section .sec-line  { background: linear-gradient(90deg, var(--pink), var(--purple)); }
+
+    .traits-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5rem;
+      max-width: 1050px;
+      margin: 0 auto;
+    }
+
+    .trait-card {
+      border-radius: 20px;
+      padding: 2.2rem 1.6rem;
+      text-align: center;
+      box-shadow: 0 6px 24px rgba(0,0,0,.08);
+      border: 1px solid rgba(255,255,255,.6);
+      transition: transform .3s, box-shadow .3s;
+      position: relative; overflow: hidden;
+    }
+    .trait-card::before {
+      content: '';
+      position: absolute; inset: 0;
+      opacity: .08;
+      border-radius: 20px;
+    }
+    .trait-card:hover { transform: translateY(-8px) scale(1.02); box-shadow: 0 16px 40px rgba(0,0,0,.14); }
+
+    .t1 { background: linear-gradient(135deg,#ffecd2,#fcb69f); }
+    .t2 { background: linear-gradient(135deg,#a18cd1,#fbc2eb); }
+    .t3 { background: linear-gradient(135deg,#a1c4fd,#c2e9fb); }
+    .t4 { background: linear-gradient(135deg,#d4fc79,#96e6a1); }
+    .t5 { background: linear-gradient(135deg,#ffd1ff,#fae1dd); }
+    .t6 { background: linear-gradient(135deg,#f9d423,#f83600); color:#fff; }
+
+    .trait-icon { font-size: 2.8rem; margin-bottom: 1rem; }
+    .trait-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: .5rem; color: #1e1b4b; }
+    .trait-card p  { font-size: .9rem; line-height: 1.65; color: #374151; }
+    .t6 h3, .t6 p { color: #fff; }
+
+    /* ════════════════════════════════
+       LETTER
+    ════════════════════════════════ */
+    .letter-section {
+      background: linear-gradient(160deg, #1e1b4b 0%, #312e81 40%, #4c1d95 100%);
+    }
+    .letter-section .sec-label { color: #c4b5fd; }
+    .letter-section .sec-title { color: #fff; }
+    .letter-section .sec-line  { background: linear-gradient(90deg, #c4b5fd, #f9a8d4); }
+
+    .letter-box {
+      max-width: 740px;
+      margin: 0 auto;
+      background: rgba(255,255,255,.07);
+      backdrop-filter: blur(12px);
+      border-radius: 28px;
+      padding: 3.5rem;
+      border: 1px solid rgba(255,255,255,.2);
+      box-shadow: 0 20px 60px rgba(0,0,0,.3);
+      position: relative;
+    }
+
+    .letter-box::before {
+      content: '"';
+      position: absolute; top: -.8rem; left: 2.5rem;
+      font-family: 'Playfair Display', serif;
+      font-size: 9rem;
+      color: rgba(196,181,253,.2);
+      line-height: 1;
+    }
+
+    .letter-box p {
+      font-size: 1.02rem; line-height: 1.9;
+      color: rgba(255,255,255,.88);
+      margin-bottom: 1.2rem;
+    }
+
+    .letter-sign {
+      margin-top: 2rem;
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      background: linear-gradient(90deg, #fde68a, #f9a8d4);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-size: 1.15rem;
+    }
+
+    /* ════════════════════════════════
+       FLIP CARDS — Reasons We Love Her
+    ════════════════════════════════ */
+    .love-section {
+      background: linear-gradient(135deg, #fff1f2 0%, #fdf4ff 50%, #eff6ff 100%);
+    }
+    .love-section .sec-label { color: var(--rose); }
+    .love-section .sec-title { color: var(--deep); }
+    .love-section .sec-line  { background: linear-gradient(90deg, var(--rose), var(--blue)); }
+
+    .love-subtitle {
+      text-align: center;
+      font-size: .97rem;
+      color: #6b7280;
+      margin-top: -.5rem;
+      margin-bottom: 2.8rem;
+    }
+
+    .flip-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1.3rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .flip-card {
+      height: 160px;
+      perspective: 1000px;
+      cursor: pointer;
+    }
+
+    .flip-inner {
+      width: 100%; height: 100%;
+      transition: transform .6s cubic-bezier(.4,0,.2,1);
+      transform-style: preserve-3d;
+      position: relative;
+    }
+
+    .flip-card.flipped .flip-inner { transform: rotateY(180deg); }
+
+    .flip-front, .flip-back {
+      position: absolute; inset: 0;
+      border-radius: 16px;
+      backface-visibility: hidden;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 1rem; text-align: center;
+      box-shadow: 0 4px 16px rgba(0,0,0,.1);
+    }
+
+    .flip-front {
+      background: linear-gradient(135deg, var(--bg1, #667eea), var(--bg2, #764ba2));
+      color: #fff;
+    }
+    .flip-front .num { font-size: 2rem; font-weight: 700; opacity: .3; }
+    .flip-front .ico { font-size: 2rem; }
+    .flip-front .hint { font-size: .68rem; opacity: .7; margin-top: .3rem; letter-spacing: .05em; }
+
+    .flip-back {
+      background: #fff;
+      transform: rotateY(180deg);
+      border: 2px solid transparent;
+      background-clip: padding-box;
+    }
+    .flip-back p { font-size: .85rem; color: #374151; line-height: 1.55; font-weight: 500; }
+
+    /* ════════════════════════════════
+       TIMELINE
+    ════════════════════════════════ */
+    .journey-section {
+      background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 100%);
+    }
+    .journey-section .sec-label { color: var(--teal); }
+    .journey-section .sec-title { color: #fff; }
+    .journey-section .sec-line  { background: linear-gradient(90deg, var(--teal), var(--blue)); }
+
+    .timeline {
+      max-width: 720px;
+      margin: 0 auto;
+      position: relative;
+      padding-left: 3rem;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute; left: 12px; top: 0; bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--teal), var(--purple), var(--pink));
+    }
+
+    .tl-item {
+      position: relative;
+      margin-bottom: 3rem;
+      opacity: 0; transform: translateX(-20px);
+      transition: opacity .6s, transform .6s;
+    }
+    .tl-item.vis { opacity: 1; transform: translateX(0); }
+
+    .tl-dot {
+      position: absolute; left: -2.6rem; top: .4rem;
+      width: 16px; height: 16px;
+      border-radius: 50%;
+      box-shadow: 0 0 0 4px rgba(255,255,255,.15);
+    }
+
+    .tl-item:nth-child(1) .tl-dot { background: var(--teal); }
+    .tl-item:nth-child(2) .tl-dot { background: var(--blue); }
+    .tl-item:nth-child(3) .tl-dot { background: var(--purple); }
+    .tl-item:nth-child(4) .tl-dot { background: var(--pink); }
+    .tl-item:nth-child(5) .tl-dot { background: var(--yellow); }
+
+    .tl-box {
+      background: rgba(255,255,255,.07);
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 16px;
+      padding: 1.5rem 1.8rem;
+      backdrop-filter: blur(6px);
+      transition: transform .3s, box-shadow .3s;
+    }
+    .tl-box:hover { transform: translateX(6px); box-shadow: 0 8px 32px rgba(0,0,0,.25); }
+
+    .tl-box h4 {
+      font-size: 1.05rem; font-weight: 600;
+      color: #fff; margin-bottom: .4rem;
+    }
+
+    .tl-box p { font-size: .9rem; color: rgba(255,255,255,.7); line-height: 1.65; }
+
+    /* ════════════════════════════════
+       HEART CLICK WALL
+    ════════════════════════════════ */
+    .heart-section {
+      background: linear-gradient(135deg, #fff1f2, #fdf4ff);
+      text-align: center;
+    }
+    .heart-section .sec-label { color: var(--pink); }
+    .heart-section .sec-title { color: var(--deep); }
+    .heart-section .sec-line  { background: linear-gradient(90deg, var(--pink), var(--purple)); }
+
+    .heart-subtitle {
+      color: #6b7280; font-size: .97rem; margin-bottom: 2.5rem;
+    }
+
+    #heartWall {
+      position: relative;
+      width: min(600px, 95vw);
+      height: 320px;
+      margin: 0 auto 2rem;
+      background: rgba(255,255,255,.6);
+      border-radius: 24px;
+      border: 2px dashed rgba(244,63,94,.3);
+      overflow: hidden;
+      cursor: crosshair;
+    }
+
+    .wall-hint {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: .5rem;
+      color: rgba(244,63,94,.5);
+      font-size: .9rem; pointer-events: none;
+      transition: opacity .4s;
+    }
+
+    .wall-hint .big { font-size: 2.5rem; }
+
+    #heartCount {
+      font-size: 1.1rem; font-weight: 700; color: var(--rose);
+      margin-top: .5rem;
+    }
+
+    /* ════════════════════════════════
+       FOOTER
+    ════════════════════════════════ */
+    footer {
+      background: linear-gradient(135deg, #1e1b4b, #4c1d95);
+      color: rgba(255,255,255,.8);
+      text-align: center;
+      padding: 4rem 1.5rem 3rem;
+    }
+
+    .footer-heart { font-size: 3rem; animation: pulse 1.4s infinite; display: block; margin-bottom: 1rem; }
+
+    footer h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.5rem, 4vw, 2.2rem);
+      color: #fff; margin-bottom: .8rem;
+    }
+
+    footer p { font-size: .95rem; line-height: 1.75; max-width: 540px; margin: 0 auto .6rem; }
+
+    .footer-tags {
+      display: flex; flex-wrap: wrap; gap: .6rem;
+      justify-content: center; margin-top: 2rem;
+    }
+
+    .footer-tag {
+      background: rgba(255,255,255,.12);
+      border: 1px solid rgba(255,255,255,.2);
+      border-radius: 50px;
+      padding: .35rem 1rem;
+      font-size: .78rem;
+      color: rgba(255,255,255,.75);
+    }
+
+    footer .credits { margin-top: 2.5rem; font-size: .75rem; color: rgba(255,255,255,.35); }
+
+    /* ════════════════════════════════
+       ANIMATIONS
+    ════════════════════════════════ */
+    @keyframes fadeDown {
+      from { opacity:0; transform: translateY(-22px); }
+      to   { opacity:1; transform: translateY(0); }
+    }
+    @keyframes fadeUp {
+      from { opacity:0; transform: translateX(-50%) translateY(15px); }
+      to   { opacity:1; transform: translateX(-50%) translateY(0); }
+    }
+    @keyframes bounce {
+      0%,100% { transform: rotate(45deg) translateY(0); }
+      50%      { transform: rotate(45deg) translateY(6px); }
+    }
+    @keyframes pulse {
+      0%,100% { transform: scale(1); }
+      50%      { transform: scale(1.2); }
+    }
+    @keyframes floatUp {
+      0%   { opacity:0; transform: translateY(0) rotate(0deg) scale(1); }
+      10%  { opacity:1; }
+      90%  { opacity:.5; }
+      100% { opacity:0; transform: translateY(-100px) rotate(20deg) scale(1.4); }
+    }
+    @keyframes popIn {
+      0%   { transform: scale(0) rotate(-10deg); opacity: 0; }
+      60%  { transform: scale(1.2) rotate(4deg); opacity: 1; }
+      100% { transform: scale(1) rotate(0deg); opacity: 1; }
+    }
+
+    /* scroll reveal generic */
+    .reveal {
+      opacity: 0; transform: translateY(28px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+    .reveal.vis { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 600px) {
+      .letter-box { padding: 2rem 1.3rem; }
+      .flip-grid   { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+<canvas id="bgCanvas"></canvas>
+
+<!-- ════════ HERO ════════ -->
+<section class="hero" id="home">
+  <div class="hero-content">
+    <div class="badge">🎓 A Tribute from Your Very First Batch</div>
+    <h1>Thank You,<br/><em>Prof. Priyanga K</em> 💛</h1>
+    <p class="hero-subtitle">
+      You walked in as our professor.<br/>
+      You stayed in our hearts as so much more.
+    </p>
+    <div class="vit-pill">🏫 Vellore Institute of Technology &nbsp;|&nbsp; First Semester 2026</div>
+    <br/>
+    <button class="confetti-btn" onclick="launchConfetti()">🎉 Shower Ma'am with Love!</button>
+  </div>
+  <div class="scroll-hint"><span>scroll</span><div class="arr"></div></div>
+</section>
+
+<!-- ════════ TRAITS ════════ -->
+<section class="traits-section">
+  <p class="sec-label reveal">What Makes Her Extraordinary</p>
+  <h2 class="sec-title reveal">More Than Just a Professor</h2>
+  <div class="sec-line reveal"></div>
+  <div class="traits-grid">
+
+    <div class="trait-card t1 reveal">
+      <div class="trait-icon">🌸</div>
+      <h3>Genuine Care</h3>
+      <p>She remembered every student's name, every worry, every small win. Her care was never surface-level — it was real and deeply felt.</p>
+    </div>
+
+    <div class="trait-card t2 reveal">
+      <div class="trait-icon">😊</div>
+      <h3>That Infectious Smile</h3>
+      <p>The moment she walked into class with that smile, the whole room lit up. No matter how tired we were, her energy changed everything.</p>
+    </div>
+
+    <div class="trait-card t3 reveal">
+      <div class="trait-icon">🤝</div>
+      <h3>Always Approachable</h3>
+      <p>No question was too small. No doubt was too silly. She made every student feel completely safe to speak up — and that's rare.</p>
+    </div>
+
+    <div class="trait-card t4 reveal">
+      <div class="trait-icon">💪</div>
+      <h3>She Believed in Us</h3>
+      <p>Even when we didn't believe in ourselves, she did. Her encouragement pushed us to try harder and believe we actually could do this.</p>
+    </div>
+
+    <div class="trait-card t5 reveal">
+      <div class="trait-icon">🌻</div>
+      <h3>A Safe Space</h3>
+      <p>Her classroom was a refuge. She made every student feel seen, valued, and important — not just as students, but as people.</p>
+    </div>
+
+    <div class="trait-card t6 reveal">
+      <div class="trait-icon">🏆</div>
+      <h3>Our First, Our Best</h3>
+      <p>We were her very first batch — and she took on that responsibility with grace, dedication, and a love for teaching we'll never forget.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ════════ LETTER ════════ -->
+<section class="letter-section">
+  <p class="sec-label reveal">Words From the Heart</p>
+  <h2 class="sec-title reveal" style="color:#fff">Dear Prof. Priyanga K</h2>
+  <div class="sec-line reveal" style="background:linear-gradient(90deg,#c4b5fd,#f9a8d4)"></div>
+
+  <div class="letter-box reveal">
+    <p>When we walked into college for the very first time, we were nervous, lost, and completely overwhelmed. Everything was new. But the moment you walked in, something felt different. Something felt <em>safe</em>.</p>
+    <p>You chose to be a human first and a professor second. You noticed when someone was struggling — not just academically, but personally. You stayed back when someone needed help, not because it was in your job description, but because you genuinely cared. And somehow, that changed everything.</p>
+    <p>We know this is just the beginning of a long and brilliant career for you. But we want you to know — your very first batch of students at VIT saw every single effort you put in. Every kind word. Every extra minute. Every warm smile.</p>
+    <p>We were lucky to be your first. And we hope every batch after us gets to feel exactly how we felt in your class.</p>
+    <div class="letter-sign">With all our love &amp; gratitude,<br/>Your First Batch — VIT 2026 💛</div>
+  </div>
+</section>
+
+<!-- ════════ FLIP CARDS — Reasons We Love Her ════════ -->
+<section class="love-section">
+  <p class="sec-label reveal">Tap Each Card to Reveal</p>
+  <h2 class="sec-title reveal">Reasons We Adore Ma'am</h2>
+  <div class="sec-line reveal" style="background:linear-gradient(90deg,#f43f5e,#3b82f6)"></div>
+  <p class="love-subtitle reveal">Click any card to flip it 👇</p>
+
+  <div class="flip-grid" id="flipGrid"></div>
+</section>
+
+<!-- ════════ TIMELINE ════════ -->
+<section class="journey-section">
+  <p class="sec-label reveal">From Day 1 to Last Day</p>
+  <h2 class="sec-title reveal" style="color:#fff">Moments We'll Never Forget</h2>
+  <div class="sec-line reveal" style="background:linear-gradient(90deg,#14b8a6,#3b82f6)"></div>
+
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-box">
+        <h4>🎓 The Very First Day</h4>
+        <p>You walked in with a smile so warm it wiped out every bit of nervousness. You introduced yourself not just as a professor, but as someone who genuinely wanted to know us.</p>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-box">
+        <h4>📖 Every Single Lecture</h4>
+        <p>You made sure no one was left behind. You'd scan the room, notice a confused face, and circle back — every time, without fail. That patience meant the world to us.</p>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-box">
+        <h4>📝 Exam Week Panic</h4>
+        <p>The stress was real. But your calm, your extra guidance, and your "you've got this" kept us going. Somehow, because you believed in us, we started to believe too.</p>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-box">
+        <h4>💡 The Lightbulb Moments</h4>
+        <p>There were so many "ohhhh!" moments in your class. You had this magical ability to make complicated things suddenly make complete sense. That was all you.</p>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-box">
+        <h4>💛 End of Semester</h4>
+        <p>The semester is over. But your impact? That's permanent. You set a bar that every professor after you will have to reach. Thank you for being our first — and best.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ HEART CLICK WALL ════════ -->
+<section class="heart-section">
+  <p class="sec-label reveal">Interactive ✨</p>
+  <h2 class="sec-title reveal">Click to Send Her Love</h2>
+  <div class="sec-line reveal"></div>
+  <p class="heart-subtitle reveal">Click anywhere inside the box to drop a heart for Ma'am 💛</p>
+
+  <div id="heartWall">
+    <div class="wall-hint" id="wallHint">
+      <span class="big">💛</span>
+      <span>Click anywhere here!</span>
+    </div>
+  </div>
+  <p id="heartCount">0 hearts sent to Ma'am 💛</p>
+</section>
+
+<!-- ════════ FOOTER ════════ -->
+<footer>
+  <span class="footer-heart">💛</span>
+  <h2>Thank You, Prof. Priyanga K</h2>
+  <p>You were our first — and you've already made a mark that no one else will ever erase. Go change the world, one student at a time.</p>
+  <p>We'll remember you always. 🌟</p>
+  <div class="footer-tags">
+    <span class="footer-tag">🏫 VIT Vellore</span>
+    <span class="footer-tag">⚛️ Applied Physics</span>
+    <span class="footer-tag">🎓 First Batch 2026</span>
+    <span class="footer-tag">💛 Forever Grateful</span>
+    <span class="footer-tag">🌟 Semester 1</span>
+  </div>
+  <div class="credits">Made with 💛 by your very first batch &nbsp;|&nbsp; VIT 2026</div>
+</footer>
+
+<!-- ════════ SCRIPTS ════════ -->
+<script>
+/* ─ Animated gradient canvas background ─ */
+(function(){
+  const c = document.getElementById('bgCanvas');
+  const ctx = c.getContext('2d');
+  let t = 0;
+  function resize(){ c.width = innerWidth; c.height = innerHeight; }
+  function draw(){
+    ctx.clearRect(0,0,c.width,c.height);
+    const orbs = [
+      { x: .2, y: .3, r: .35, c: '#a855f7' },
+      { x: .8, y: .2, r: .3,  c: '#ec4899' },
+      { x: .5, y: .8, r: .38, c: '#3b82f6' },
+      { x: .1, y: .7, r: .25, c: '#14b8a6' },
+      { x: .9, y: .7, r: .28, c: '#f97316' },
+    ];
+    orbs.forEach((o,i) => {
+      const px = (o.x + Math.sin(t*.0008 + i)*0.07) * c.width;
+      const py = (o.y + Math.cos(t*.0006 + i)*0.07) * c.height;
+      const g = ctx.createRadialGradient(px,py,0,px,py,Math.min(c.width,c.height)*o.r);
+      g.addColorStop(0, o.c + '33');
+      g.addColorStop(1, 'transparent');
+      ctx.fillStyle = g;
+      ctx.fillRect(0,0,c.width,c.height);
+    });
+    t++;
+    requestAnimationFrame(draw);
+  }
+  addEventListener('resize', resize);
+  resize(); draw();
+})();
+
+/* ─ Floating emojis in hero ─ */
+(function(){
+  const hero = document.querySelector('.hero');
+  const emos = ['💛','⭐','✨','🌸','💫','🌟','💕','🎉'];
+  function spawnEmo(){
+    const e = document.createElement('span');
+    e.className = 'floatie';
+    e.textContent = emos[Math.floor(Math.random()*emos.length)];
+    const dur = Math.random()*4+3;
+    e.style.cssText = `
+      left:${Math.random()*100}%;
+      bottom:0;
+      animation-duration:${dur}s;
+      animation-delay:0s;
+      font-size:${Math.random()*1.2+.9}rem;
+    `;
+    hero.appendChild(e);
+    setTimeout(() => e.remove(), dur*1000);
+  }
+  setInterval(spawnEmo, 700);
+})();
+
+/* ─ Confetti ─ */
+function launchConfetti(){
+  const colors = ['#ff6b9d','#a855f7','#fbbf24','#3b82f6','#10b981','#f97316','#f43f5e'];
+  for(let i=0;i<120;i++){
+    setTimeout(()=>{
+      const p = document.createElement('div');
+      const size = Math.random()*10+5;
+      p.style.cssText = `
+        position:fixed; top:-20px;
+        left:${Math.random()*100}vw;
+        width:${size}px; height:${size}px;
+        background:${colors[Math.floor(Math.random()*colors.length)]};
+        border-radius:${Math.random()>.5?'50%':'2px'};
+        z-index:9999; pointer-events:none;
+        animation: confFall ${Math.random()*2+1.5}s ease forwards;
+        transform: rotate(${Math.random()*360}deg);
+      `;
+      document.body.appendChild(p);
+      setTimeout(()=>p.remove(), 3500);
+    }, i*25);
+  }
+}
+const style = document.createElement('style');
+style.textContent = `
+  @keyframes confFall {
+    0%  { transform: translateY(0) rotate(0deg); opacity:1; }
+    100%{ transform: translateY(105vh) rotate(${Math.random()*720}deg); opacity:0; }
+  }`;
+document.head.appendChild(style);
+
+/* ─ Flip cards data ─ */
+const reasons = [
+  { ico:'💛', text:'She remembered every single student\'s name from day one.' },
+  { ico:'😊', text:'Her smile could turn any terrible Monday into something bearable.' },
+  { ico:'🤍', text:'She genuinely cared — not as a duty, but as a person.' },
+  { ico:'🙋', text:'She made us feel like our questions actually mattered.' },
+  { ico:'🌟', text:'She stayed back without being asked, just to help us understand.' },
+  { ico:'🎯', text:'She had a way of explaining things that just *clicked* every time.' },
+  { ico:'🫂', text:'She checked in on us personally, not just academically.' },
+  { ico:'🔥', text:'Her dedication to us was visible in every single lecture.' },
+  { ico:'📚', text:'She made us want to actually study — that\'s a superpower.' },
+  { ico:'🌈', text:'She brought colour and energy into what could\'ve been boring.' },
+  { ico:'🕊️', text:'She never made anyone feel embarrassed for not knowing something.' },
+  { ico:'⏰', text:'She was always on time, fully present, and fully committed.' },
+  { ico:'💌', text:'She wrote feedback that was kind, honest, and actually helpful.' },
+  { ico:'🎤', text:'Even her voice made you pay attention — calm, warm, clear.' },
+  { ico:'🧠', text:'She challenges us to think, not just memorise and forget.' },
+];
+
+const gradients = [
+  ['#ff6b9d','#f43f5e'],['#a855f7','#7c3aed'],['#3b82f6','#06b6d4'],
+  ['#10b981','#14b8a6'],['#f97316','#fbbf24'],['#ec4899','#a855f7'],
+  ['#fbbf24','#f97316'],['#06b6d4','#3b82f6'],['#7c3aed','#ec4899'],
+  ['#f43f5e','#f97316'],['#14b8a6','#10b981'],['#fbbf24','#10b981'],
+  ['#3b82f6','#a855f7'],['#f97316','#ec4899'],['#06b6d4','#7c3aed'],
+];
+
+const grid = document.getElementById('flipGrid');
+reasons.forEach((r,i) => {
+  const [bg1,bg2] = gradients[i % gradients.length];
+  const card = document.createElement('div');
+  card.className = 'flip-card';
+  card.innerHTML = `
+    <div class="flip-inner">
+      <div class="flip-front" style="background:linear-gradient(135deg,${bg1},${bg2})">
+        <div class="ico">${r.ico}</div>
+        <div class="hint">tap to reveal</div>
+      </div>
+      <div class="flip-back" style="border-color:${bg1}">
+        <p>${r.text}</p>
+      </div>
+    </div>`;
+  card.addEventListener('click', () => card.classList.toggle('flipped'));
+  grid.appendChild(card);
+});
+
+/* ─ Heart Wall ─ */
+const wall = document.getElementById('heartWall');
+const hint = document.getElementById('wallHint');
+const countEl = document.getElementById('heartCount');
+let heartCount = 0;
+const heartEmojis = ['💛','💜','💙','💖','💗','💝','❤️','🧡','💚'];
+
+wall.addEventListener('click', e => {
+  const rect = wall.getBoundingClientRect();
+  const x = e.clientX - rect.left;
+  const y = e.clientY - rect.top;
+
+  const h = document.createElement('div');
+  h.style.cssText = `
+    position:absolute;
+    left:${x}px; top:${y}px;
+    font-size:${Math.random()*1.2+1}rem;
+    transform:translate(-50%,-50%) scale(0);
+    animation: popIn .4s ease forwards;
+    pointer-events:none; user-select:none;
+    z-index:5;
+  `;
+  h.textContent = heartEmojis[Math.floor(Math.random()*heartEmojis.length)];
+  wall.appendChild(h);
+
+  heartCount++;
+  countEl.textContent = `${heartCount} heart${heartCount!==1?'s':''} sent to Ma'am 💛`;
+  if(heartCount === 1) hint.style.opacity = '0';
+
+  // mini float-up animation
+  setTimeout(()=>{
+    h.style.transition = 'transform 1s ease, opacity 1s ease';
+    h.style.transform = `translate(-50%, ${-40 - Math.random()*30}px) scale(1)`;
+    h.style.opacity = '0';
+  }, 400);
+  setTimeout(()=> h.remove(), 1500);
+});
+
+/* ─ Scroll reveal ─ */
+(function(){
+  const els = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver(entries => {
+    entries.forEach((e,i) => {
+      if(e.isIntersecting){
+        setTimeout(()=> e.target.classList.add('vis'), i * 90);
+        io.unobserve(e.target);
+      }
+    });
+  },{ threshold: 0.1 });
+  els.forEach(el => io.observe(el));
+})();
+
+/* ─ Timeline scroll reveal ─ */
+(function(){
+  const items = document.querySelectorAll('.tl-item');
+  const io = new IntersectionObserver(entries => {
+    entries.forEach((e,i)=>{
+      if(e.isIntersecting){
+        setTimeout(()=> e.target.classList.add('vis'), i*150);
+        io.unobserve(e.target);
+      }
+    });
+  },{ threshold: 0.15 });
+  items.forEach(el => io.observe(el));
+})();
+</script>
+</body>
+</html>
